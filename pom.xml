@@ -1,0 +1,181 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>gov.va.iehr</groupId>
+    <artifactId>UTSClient</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>UTSClient</name>
+    <url>http://maven.apache.org</url>
+
+
+    
+    
+    <build>
+        <plugins>
+        
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.jvnet.jax-ws-commons</groupId> <!-- moved from org.codehaus.mojo -->
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.1</version>
+<!--                version 2.2 produces code that requires webservicefeature class-->
+                <executions>
+                    <execution>
+                        <id>wsimport-generate-utsapi20</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlLocation>https://uts-ws.nlm.nih.gov/services/*</wsdlLocation> 
+                            <wsdlUrls>
+                                <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsContent?wsdl</wsdlUrl>
+                                <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsSecurity?wsdl</wsdlUrl>
+                                <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsMetadata?wsdl</wsdlUrl>
+                                <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsFinder?wsdl</wsdlUrl>
+                                <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsHistory?wsdl</wsdlUrl>
+                                <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsSemanticNetwork?wsdl</wsdlUrl>
+                            </wsdlUrls>
+
+<!--                            <wsdlFiles>
+                                <wsdlFile>${basedir}/src/main/resources/wsdl/nwsContent.xml</wsdlFile>
+                                <wsdlFile>${basedir}/src/main/resources/wsdl/nwsSecurity.xml</wsdlFile>
+                                <wsdlFile>${basedir}/src/main/resources/wsdl/nwsMetadata.xml</wsdlFile>
+                                <wsdlFile>${basedir}/src/main/resources/wsdl/nwsFinder.xml</wsdlFile>
+                                <wsdlFile>${basedir}/src/main/resources/wsdl/nwsHistory.xml</wsdlFile>
+                                <wsdlFile>${basedir}/src/main/resources/wsdl/nwsSemanticNetwork.xml</wsdlFile>
+                            </wsdlFiles>                            -->
+                            
+                        </configuration>
+                    </execution>
+                </executions>                
+            </plugin>
+            
+            
+<!--      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>axistools-maven-plugin</artifactId>
+        <version>1.4</version>
+        <configuration>
+            <urls>
+                <url>https://uts-ws.nlm.nih.gov/authorization/services/AuthorizationPort?WSDL</url>
+                <url>https://uts-ws.nlm.nih.gov/UMLSKS/services/UMLSKSService?wsdl</url>
+            </urls>
+          <mappings>
+              <mapping>
+                  <namespace>urn:authorization.umlsks.nlm.nih.gov</namespace>
+                  <targetPackage>gov.nih.nlm.umlsks.authorizaion</targetPackage>
+              </mapping>
+              <mapping>
+                  <namespace>urn:umlsks.nlm.nih.gov </namespace>
+                  <targetPackage>gov.nih.nlm.umlsks</targetPackage>
+              </mapping>
+          </mappings>
+          <testCases>false</testCases>
+          <serverSide>true</serverSide>
+          <subPackageByFileName>false</subPackageByFileName>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>wsdl2java</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>-->
+      
+        </plugins>
+    </build>
+    
+    <dependencies>
+        
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>          
+        
+        
+        
+<!--        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+    
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>-->
+    
+<!--        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.4</version>
+        </dependency>-->
+        
+<!--                    JAX-WS 2.1 for WebServiceFeature class-->
+<!--        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>webservices-api</artifactId>
+            <version>2.1-b16</version>
+        </dependency>-->
+        
+        
+        <dependency>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
+            <version>2.2.8</version>
+        </dependency>
+        
+        
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.5</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+</project>
