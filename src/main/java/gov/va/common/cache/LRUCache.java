@@ -64,7 +64,13 @@ public class LRUCache<K, T> extends gov.va.common.cache.AbstractCache<K,T> {
     @Override
     public void put(K key, T value) {
         synchronized (cacheMap) {
-            cacheMap.put(key, new CachedObject(value));
+            if(this.putNullsInCache) {
+                cacheMap.put(key, new CachedObject(value));
+            } else {
+                if (value != null) {
+                cacheMap.put(key, new CachedObject(value));
+                }
+            }
         }
     }
 

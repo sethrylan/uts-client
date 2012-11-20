@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.va.common.cache;
 
 import gov.va.iehr.uts.UTSClient;

@@ -65,6 +65,7 @@ public final class LFUCache<K, V> extends AbstractCache<K,V> {
                                      putNullInCache);
     }
 
+    @Override
     public void put(final K key, final V value) {
         if (this.isPutNullsInCache()) {
             this.getCache().put(new Element(key, value));
@@ -76,6 +77,7 @@ public final class LFUCache<K, V> extends AbstractCache<K,V> {
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public V get(final K key) {
         Element element = this.getCache().get(key);
         if (element != null) {
@@ -83,11 +85,13 @@ public final class LFUCache<K, V> extends AbstractCache<K,V> {
         }
         return null;
     }
-
+    
+    @Override
     public void delete(final K key) {
         this.getCache().remove(key);
     }
-
+    
+    @Override
     public void flush() {
         this.getCache().flush();
     }

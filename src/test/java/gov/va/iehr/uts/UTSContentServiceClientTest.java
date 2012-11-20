@@ -89,18 +89,7 @@ public class UTSContentServiceClientTest {
         ConceptDTO lowerCaseConcept = testClient.getConcept("c0032212");
         Assert.assertNull(lowerCaseConcept);
     }
-    
-        
-    @Test
-    public void testDirectAccess() {
-        AtomDTO atom = null;
-        try {
-            atom = testClient.getContentService().getAtom( testClient.getSecurityService().getProxyTicket(testClient.getTicketGrantingTicket(), testClient.getServiceName()), testClient.getUmlsVersion(), "A18667789");
-        } catch (UtsFault_Exception ex) {
-            Logger.getLogger(UTSContentServiceClientTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Assert.assertNotNull(atom);
-    }
+
     
     @Test
     public void testGetAtom() {
