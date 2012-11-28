@@ -30,8 +30,8 @@ public class UTSFinderServiceClient extends UTSClient {
     
     /**
      * Returns list of UMLS CUIs and their associated preferred names
-     * Includes up to 500 results in unspecified ascending order; includes obsolete, suppressible items. Probably case sensitive???
-     * @param finderSearchTarget    Element on which to search
+     * Includes up to 500 results in unspecified ascending order; includes obsolete, suppressible items. Case-insensitive.
+     * @param finderSearchTarget    Element on which to search; note: ATOM must be used for String searches
      * @param finderSearchType      Method of string matching
      * @param searchString          String on which to search
      * @return                      List of UiLabels
@@ -51,7 +51,7 @@ public class UTSFinderServiceClient extends UTSClient {
     
     /**
      * Given a UMLS release, a searchType, and the string or code you would like to search, returns a set of atom unique identifiers (AUI) each with its corresponding atom name (Label), that meet your search criteria
-     * Includes up to 500 results in unspecified ascending order; includes obsolete, suppressible items. Probably case sensitive???
+     * Includes up to 500 results in unspecified ascending order; includes obsolete, suppressible items. Case-insensitive.
      * @param finderSearchTarget    Element on which to search
      * @param finderSearchType      Method of string matching
      * @param searchString          String on which to search
@@ -71,7 +71,7 @@ public class UTSFinderServiceClient extends UTSClient {
     
     /**
      * Starting with an atom, source concept, source descriptor, or aui, returns first 500 codes, their preferred names, and the source vocabularies that provide them
-     * Includes up to 500 results in unspecified ascending order; includes obsolete, suppressible items. Probably case sensitive???
+     * Includes up to 500 results in unspecified ascending order; includes obsolete, suppressible items. Case-insensitive.
      * Atoms with a code of "NOCODE" or case insensitive variations are removed; Some atoms from source vocabularies are assigned "NOCODE" during source processing, and will not be useful in the context of most finder search results.
      * @param finderSearchTarget    Element on which to search
      * @param finderSearchType      Method of string matching

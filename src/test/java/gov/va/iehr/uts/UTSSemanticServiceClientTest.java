@@ -41,30 +41,6 @@ public class UTSSemanticServiceClientTest {
     }
     
     @Test
-    public void testGetServiceName() {
-        Assert.assertNotNull(testClient.getServiceName());
-        // TODO: check that serviceName matches properties file
-    }
-
-    @Test
-    public void testGetUsername() {
-        Assert.assertNotNull(testClient.getUsername());
-        // TODO: check that username matches properties file
-    }
-
-    @Test
-    public void testGetPassword() {
-        Assert.assertNotNull(testClient.getPassword());
-        // TODO: check that password matches properties file
-    }
-
-    @Test
-    public void testGetUmlsVersion() {
-        Assert.assertNotNull(testClient.getUmlsVersion());
-        // TODO: check that version matches properties file
-    }
-
-    @Test
     public void testGetSemanticType() {
         SemanticTypeDTO semanticType = this.testClient.getSemanticType("T129");
         Assert.assertNotNull(semanticType);

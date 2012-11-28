@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.va.iehr.uts;
 
 import gov.nih.nlm.umls.uts.webservice.*;
@@ -16,12 +12,12 @@ import java.util.logging.Logger;
  */
 public abstract class UTSClient {
 
-    private UtsWsSecurityController securityService = null;
-    private String ticketGrantingTicket = null;
-    private String serviceName = null;
-    private String username = null;
-    private String password = null;
-    private String umlsVersion = null;
+    UtsWsSecurityController securityService = null;
+    String ticketGrantingTicket = null;
+    String serviceName = null;
+    String username = null;
+    String password = null;
+    String umlsVersion = null;
     
     public UTSClient() {
         this.loadProperties();
@@ -44,10 +40,10 @@ public abstract class UTSClient {
             Logger.getLogger(UTSClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.setPassword(props.getProperty("password"));
-        this.setUsername(props.getProperty("username"));
-        this.setServiceName(props.getProperty("serviceName"));        
-        this.setUmlsVersion(props.getProperty("umlsVersion"));
+        this.password = props.getProperty("password");
+        this.username = props.getProperty("username");
+        this.serviceName = props.getProperty("serviceName");        
+        this.umlsVersion = props.getProperty("umlsVersion");
     }
     
     /**
@@ -56,7 +52,7 @@ public abstract class UTSClient {
      */
     protected String getProxyTicket() {
         try {
-            return getSecurityService().getProxyTicket(getTicketGrantingTicket(), getServiceName());
+            return getSecurityService().getProxyTicket(ticketGrantingTicket, serviceName);
         } catch (Exception e) {
             return "";
         }
@@ -66,47 +62,12 @@ public abstract class UTSClient {
         return securityService;
     }
 
-    public void setSecurityService(UtsWsSecurityController securityService) {
-        this.securityService = securityService;
-    }
-
-    public String getTicketGrantingTicket() {
-        return ticketGrantingTicket;
-    }
-
-    public void setTicketGrantingTicket(String ticketGrantingTicket) {
-        this.ticketGrantingTicket = ticketGrantingTicket;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUmlsVersion() {
         return umlsVersion;
     }
 
-    public void setUmlsVersion(String umlsVersion) {
-        this.umlsVersion = umlsVersion;
-    }
 }

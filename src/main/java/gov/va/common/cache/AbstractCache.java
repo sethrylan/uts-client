@@ -11,7 +11,6 @@ import java.util.logging.Logger;
  * @author gaineys
  */
 public class AbstractCache<K, V> implements gov.va.common.cache.Cache<K, V> {
-
     
     protected static int SECONDS_PER_DAY = 86400;
     protected static int defaultTimeToLiveInSeconds;

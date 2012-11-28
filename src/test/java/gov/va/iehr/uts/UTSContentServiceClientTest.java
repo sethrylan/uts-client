@@ -1,14 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.va.iehr.uts;
 
 import gov.nih.nlm.umls.uts.webservice.AtomDTO;
 import gov.nih.nlm.umls.uts.webservice.ConceptDTO;
-import gov.nih.nlm.umls.uts.webservice.UtsFault_Exception;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.hamcrest.Matchers.*;
 import org.junit.*;
 
 /**
@@ -39,35 +33,10 @@ public class UTSContentServiceClientTest {
     public void tearDown() {
         this.testClient = null;
     }
-
     
     @Test
     public void testGetProxyTicket(){
         Assert.assertNotNull(testClient.getProxyTicket());
-    }
-    
-    @Test
-    public void testGetServiceName() {
-        Assert.assertNotNull(testClient.getServiceName());
-        // TODO: check that serviceName matches properties file
-    }
-
-    @Test
-    public void testGetUsername() {
-        Assert.assertNotNull(testClient.getUsername());
-        // TODO: check that username matches properties file
-    }
-
-    @Test
-    public void testGetPassword() {
-        Assert.assertNotNull(testClient.getPassword());
-        // TODO: check that password matches properties file
-    }
-
-    @Test
-    public void testGetUmlsVersion() {
-        Assert.assertNotNull(testClient.getUmlsVersion());
-        // TODO: check that version matches properties file
     }
     
     @Test
@@ -113,11 +82,12 @@ public class UTSContentServiceClientTest {
 //        System.out.println("SubsetMemberRelationCount=" + atom.getSubsetMemberCount());
 //        System.out.println("TreePositionCount=" + atom.getTreePositionCount());
 //        System.out.println("SourceConceptPreferredName=" + atom.getSourceConcept().getDefaultPreferredName());
-
+        
+        Assert.assertEquals("0000034722", atom.getSourceUi()); // ??? Kiwi Fruit???
+        Assert.assertEquals("CHV", atom.getRootSource()); // "Consumer Health Vocabulary"
         Assert.assertEquals(atom.getConcept().getUi(), testClient.getConcept("C0032212").getUi());
+        Assert.assertTrue(atom.getSourceConcept().getDefaultPreferredName().toLowerCase().contains("platypus"));
     }
-    
-    
     
 //    C0032212/scud=0000009843/code=0000009843 = platypus (atom =[A18667789/CHV/PT])
 //    C0018787 = heart

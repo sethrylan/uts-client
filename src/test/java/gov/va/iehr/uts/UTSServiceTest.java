@@ -35,7 +35,7 @@ public class UTSServiceTest {
     public void testDirectAccess() {
         AtomDTO atom = null;
         try {
-            atom = testClient.getContentService().getAtom( testClient.getSecurityService().getProxyTicket(testClient.getTicketGrantingTicket(), testClient.getServiceName()), testClient.getUmlsVersion(), "A18667789");
+            atom = testClient.getContentService().getAtom( testClient.getSecurityService().getProxyTicket(testClient.ticketGrantingTicket, testClient.serviceName), testClient.getUmlsVersion(), "A18667789");
         } catch (UtsFault_Exception ex) {
             Logger.getLogger(UTSContentServiceClientTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -45,15 +45,15 @@ public class UTSServiceTest {
     @Test
     public void testSecurityService() {
         try {
-            String ticketGrantingTicket = testClient.getTicketGrantingTicket();
+            String ticketGrantingTicket = testClient.ticketGrantingTicket;
 
-            String proxyTicket = testClient.getSecurityService().getProxyTicket(ticketGrantingTicket, testClient.getServiceName());
+            String proxyTicket = testClient.getSecurityService().getProxyTicket(ticketGrantingTicket, testClient.serviceName);
 
-            Assert.assertEquals("sethrylan", testClient.getSecurityService().validateProxyTicket(proxyTicket, testClient.getServiceName()));
+            Assert.assertEquals("sethrylan", testClient.getSecurityService().validateProxyTicket(proxyTicket, testClient.serviceName));
             
             testClient.getContentService().getAtom( proxyTicket, testClient.getUmlsVersion(), "A18667789");
             
-            Assert.assertNull( testClient.getSecurityService().validateProxyTicket(proxyTicket, testClient.getServiceName()));
+            Assert.assertNull( testClient.getSecurityService().validateProxyTicket(proxyTicket, testClient.serviceName));
             
         } catch (UtsFault_Exception ex) {
             Logger.getLogger(UTSContentServiceClientTest.class.getName()).log(Level.SEVERE, null, ex);

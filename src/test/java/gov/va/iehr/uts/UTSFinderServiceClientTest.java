@@ -1,14 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.va.iehr.uts;
 
 import gov.nih.nlm.umls.uts.webservice.UiLabel;
 import gov.nih.nlm.umls.uts.webservice.UiLabelRootSource;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.*;
+import junit.framework.Assert;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -43,31 +44,6 @@ public class UTSFinderServiceClientTest {
     public void testGetProxyTicket(){
         Assert.assertNotNull(testClient.getProxyTicket());
     }
-    
-    @Test
-    public void testGetServiceName() {
-        Assert.assertNotNull(testClient.getServiceName());
-        // TODO: check that serviceName matches properties file
-    }
-
-    @Test
-    public void testGetUsername() {
-        Assert.assertNotNull(testClient.getUsername());
-        // TODO: check that username matches properties file
-    }
-
-    @Test
-    public void testGetPassword() {
-        Assert.assertNotNull(testClient.getPassword());
-        // TODO: check that password matches properties file
-    }
-
-    @Test
-    public void testGetUmlsVersion() {
-        Assert.assertNotNull(testClient.getUmlsVersion());
-        // TODO: check that version matches properties file
-    }
-
 
     @Test
     public void testFindConcepts() {
@@ -82,41 +58,69 @@ public class UTSFinderServiceClientTest {
            add("C2956919");           
         }};
         
-        List<UiLabel> uiLabels = null;
-        uiLabels = testClient.findConcepts(FinderSearchTarget.ATOM, FinderSearchType.WORDS,"lou gehrig disease");
-        
+        List<UiLabel> uiLabels = testClient.findConcepts(FinderSearchTarget.ATOM, FinderSearchType.WORDS,"lou gehrig disease");
         Assert.assertTrue(uiLabels.size() > 0);
-        
+//        org.junit.Assert.assertThat(uiLabels, everyItem(Matchers.<RootSourceDTO>hasProperty("label", either(containsString("sclerosis")).or(containsString("lou")))));
         for(UiLabel uiLabel : uiLabels) {
+//            System.out.println(uiLabel.getUi() + "  |  " + uiLabel.getLabel());
             Assert.assertTrue(uiLabel.getLabel().toLowerCase().contains("sclerosis") || uiLabel.getLabel().toLowerCase().contains("lou"));
+            Assert.assertTrue("[C]UI format should be C#######.", uiLabel.getUi().matches("C\\d{7}"));
+
         }
+                
+        List<UiLabel> uiLabelsUpperCase = testClient.findConcepts(FinderSearchTarget.ATOM, FinderSearchType.WORDS,"lou gehrig disease".toUpperCase());
+        Assert.assertTrue(uiLabelsUpperCase.size() > 0);
+        Assert.assertEquals(uiLabels.size(), uiLabelsUpperCase.size() );
+//        Assert.assertTrue(uiLabels.containsAll(uiLabelsUpperCase));    Objects have different reference, but are the same
+        for(UiLabel uiLabel : uiLabelsUpperCase) {
+            Assert.assertTrue(uiLabel.getLabel().toLowerCase().contains("sclerosis") || uiLabel.getLabel().toLowerCase().contains("lou"));
+            Assert.assertTrue("[C]UI format should be C#######.", uiLabel.getUi().matches("C\\d{7}"));
+        }
+                
+
     }
     
     @Test
     public void testFindAtoms() {
         
-        List<UiLabel> uiLabels = null;
-        uiLabels = testClient.findAtoms(FinderSearchTarget.ATOM, FinderSearchType.EXACT,"lou gehrig disease");
+        List<UiLabel> uiLabels = testClient.findAtoms(FinderSearchTarget.ATOM, FinderSearchType.EXACT,"lou gehrig disease");
         
         Assert.assertTrue(uiLabels.size() > 0);
         
         for(UiLabel uiLabel : uiLabels) {
             Assert.assertEquals("lougehrigdisease", uiLabel.getLabel().toLowerCase().replaceAll("\\s",""));
+            Assert.assertTrue("AUI format should be A######...", uiLabel.getUi().matches("A\\d{7,10}"));
         }
     }    
 
     
+    
     @Test
-    public void testFindCodes() {
+    public void testFindAtomsNormalized() {
         
-        List<UiLabelRootSource> uiLabels = testClient.findCodes(FinderSearchTarget.ATOM, FinderSearchType.EXACT,"diabetic foot");
+        List<UiLabel> uiLabels = testClient.findAtoms(FinderSearchTarget.ATOM, FinderSearchType.NORMALIZEDSTRING,"lou gehrig disease");
         
         Assert.assertTrue(uiLabels.size() > 0);
         
+        for(UiLabel uiLabel : uiLabels) {
+            // unlike EXACT, NORMALIZEDSTRING will match orthographic and stylistic variations
+            Assert.assertTrue(uiLabel.getLabel().toLowerCase().contains("lou") && uiLabel.getLabel().toLowerCase().contains("gehrig"));
+            Assert.assertTrue("AUI format should be A######...", uiLabel.getUi().matches("A\\d{7,10}"));
+        }
+    }    
+    
+    
+    
+    @Test
+    public void testFindCodes() {
+        
+        List<UiLabelRootSource> uiLabels = testClient.findCodes(FinderSearchTarget.ATOM, FinderSearchType.EXACT,"lou gehrig disease");
+        
+        Assert.assertTrue(uiLabels.size() > 0);
         for(UiLabelRootSource uiLabel : uiLabels) {
             Assert.assertNotSame("nocode", uiLabel.getUi().toLowerCase());
-            Assert.assertTrue(uiLabel.getLabel().toLowerCase().contains("diabetic foot"));
-
+            // codes UIs can be pretty much anything
+            Assert.assertTrue(uiLabel.getLabel().toLowerCase().contains("sclerosis") || uiLabel.getLabel().toLowerCase().contains("lou"));
         }
     }    
 
