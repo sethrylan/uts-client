@@ -1,4 +1,4 @@
-#UTS Client
+# UTS Client
 
 A test client for UTS API 2.0 (UMLS Terminology Services, replacement to UMLSKS).
 
@@ -7,10 +7,10 @@ A test client for UTS API 2.0 (UMLS Terminology Services, replacement to UMLSKS)
 
 Also includes experimental LFU/LRU cache implementations.
 
-##Build Instructions
+## Build Instructions
 mvn clean install
 
-**Additional install steps:
+** Additional install steps:
 
 Add the *.nlm.nih.gov certificate to the Maven keystore:
 ```
