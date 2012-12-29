@@ -44,7 +44,7 @@ public class LRUCache<K, T> extends gov.va.common.cache.AbstractCache<K,T> {
         cacheMap = new LRUMap(maxElements);
 
         if (timeToLiveInSeconds > 0 && timeToIdleInSeconds > 0) {
-            Thread t = new Thread(new Runnable() {
+            Thread thread = new Thread(new Runnable() {
                         public void run() {
                             while (true) {
                                 try {
@@ -56,8 +56,8 @@ public class LRUCache<K, T> extends gov.va.common.cache.AbstractCache<K,T> {
                             }
                         }
                     });
-            t.setDaemon(true);
-            t.start();
+            thread.setDaemon(true);
+            thread.start();
         }
     }
 

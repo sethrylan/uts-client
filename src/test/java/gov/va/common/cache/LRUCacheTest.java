@@ -40,4 +40,12 @@ public class LRUCacheTest extends CacheTest<LRUCache> {
     @Test
     public void testCleanup() {
     }
-}
+    
+    @Test
+    public void testGetDefaultInstance() {
+        testCache = LRUCache.getDefaultInstance();
+        Assert.assertNotNull(testCache);
+        Assert.assertEquals(172800 ,testCache.getTimeToLiveInSeconds());
+        Assert.assertEquals(1000, testCache.getMaxElements());
+        Assert.assertEquals(testCache.isPutNullsInCache(), true);
+    }}

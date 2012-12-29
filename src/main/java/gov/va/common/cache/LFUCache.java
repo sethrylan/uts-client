@@ -24,7 +24,7 @@ public final class LFUCache<K, V> extends AbstractCache<K,V> {
     private final CacheManager cacheManager;
     private final String cacheName;
     
-    private LFUCache(final String cacheName, final int timeToLiveInSeconds, final int timeToIdleInSeconds, final int maxElements, final boolean putNullsInCache) {
+    private LFUCache(String cacheName, int timeToLiveInSeconds, int timeToIdleInSeconds, int maxElements, boolean putNullsInCache) {
 
         this.timeToLiveInSeconds = timeToLiveInSeconds;
         this.timeToIdleInSeconds = timeToIdleInSeconds;

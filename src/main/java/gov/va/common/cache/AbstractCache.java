@@ -26,7 +26,7 @@ public class AbstractCache<K, V> implements gov.va.common.cache.Cache<K, V> {
     public AbstractCache() {
     }
     
-    protected static void loadProperties(){
+    protected final static void loadProperties(){
         Properties props = new Properties();
         try {
             props.load(AbstractCache.class.getClassLoader().getResourceAsStream("cache.properties"));
