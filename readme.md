@@ -20,4 +20,6 @@ Build in maven
 mvn clean install
 ```
 
+##License
 
+Released under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
