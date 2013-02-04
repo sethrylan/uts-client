@@ -22,4 +22,4 @@ mvn clean install
 
 ##License
 
-Released under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+All source code and documents in this repository are licensed under the [MIT-License](http://opensource.org/licenses/MIT).
