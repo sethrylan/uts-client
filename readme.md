@@ -20,4 +20,6 @@ Build in maven
 mvn clean install
 ```
 
+##License
 
+All source code and documents in this repository are licensed under the [MIT-License](http://opensource.org/licenses/MIT).
