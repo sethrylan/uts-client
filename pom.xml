@@ -35,6 +35,17 @@
                         </goals>
                         <configuration>
                             <wsdlLocation>https://uts-ws.nlm.nih.gov/services/*</wsdlLocation> 
+                            <!--For local wsimport-->
+<!--                            <wsdlDirectory>src/main/resources/wsdl</wsdlDirectory>
+                            <wsdlFiles>
+                                <wsdlFile>nwsContent.xml</wsdlFile>
+                                <wsdlFile>nwsFinder.xml</wsdlFile>
+                                <wsdlFile>nwsHistory.xml</wsdlFile>
+                                <wsdlFile>nwsMetadata.xml</wsdlFile>
+                                <wsdlFile>nwsSecurity.xml</wsdlFile>
+                                <wsdlFile>nwsHistory.xml</wsdlFile>
+                                <wsdlFile>nwsSemanticNetwork.xml</wsdlFile>
+                            </wsdlFiles>-->
                             <wsdlUrls>
                                 <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsContent?wsdl</wsdlUrl>
                                 <wsdlUrl>https://uts-ws.nlm.nih.gov/services/nwsSecurity?wsdl</wsdlUrl>
